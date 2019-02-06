@@ -18,5 +18,7 @@
     "url": "https://github.com/rudydimacali/CLIcTacToe/issues"
   },
   "homepage": "https://github.com/rudydimacali/CLIcTacToe#readme",
-  "dependencies": {}
+  "dependencies": {
+    "readline-sync": "^1.4.9"
+  }
 }
