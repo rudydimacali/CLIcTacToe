@@ -2,13 +2,13 @@ const readline = require('readline');
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 const checkWin = (board) => {
   board.forEach((row, col) => {
     // Check current row
-    if (board[row][0] !== '_' && board[row][0] === board[row][1] && board[row][1] === board[row][2]) {
+    if (row[0] !== '_' && row[0] === row[1] && row[1] === row[2]) {
       return true;
     }
     // Check current column
@@ -19,26 +19,30 @@ const checkWin = (board) => {
   // Check diagonals
   if ((board[0][0] !== '_' && board[0][0] === board[1][1] && board[1][1] === board[2][2])
     || (board[2][0] !== '_' && board[2][0] === board[1][1] && board[1][1] === board[0][2])) {
-    return false;
+    return true;
   }
+  return false;
 };
 
 const togglePiece = (board, currentPlayer) => {
   let x = null;
   let y = null;
-  const getInput = () => {
-    rl.question('Enter the zero-indexed X coordinate of the position to mark.', (answer) => {
+  rl.question('Enter the zero-indexed X coordinate of the position to mark.', (answer) => {
+    if (answer >= 0 && answer <= 2) {
       x = answer;
       rl.close();
-    });
-    rl.question('Enter the zero-indexed X coordinate of the position to mark.', (answer) => {
-      x = answer;
+    } else {
+      togglePiece(board, currentPlayer);
+    }
+  });
+  rl.question('Enter the zero-indexed X coordinate of the position to mark.', (answer) => {
+    if (answer >= 0 && answer <= 2) {
+      y = answer;
       rl.close();
-    });
-  };
-  while (x === null || y === null) {
-    getInput();
-  }
+    } else {
+      togglePiece(board, currentPlayer);
+    }
+  });
   if (board[x][y] === '_') {
     board[x][y] = currentPlayer;
   } else {
@@ -53,7 +57,7 @@ const playGame = (board) => {
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
   }
   console.log(`${currentPlayer} wins!`);
-  const playAgain = 'n';
+  let playAgain = 'n';
   rl.question('Would you like to play again? (Y/N)', (answer) => {
     playAgain = answer.toLowerCase();
     rl.close();
