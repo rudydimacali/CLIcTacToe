@@ -6,7 +6,21 @@ const rl = readline.createInterface({
 });
 
 const checkWin = (board) => {
-  // TODO: implement win checking
+  board.forEach((row, col) => {
+    // Check current row
+    if (board[row][0] !== '_' && board[row][0] === board[row][1] && board[row][1] === board[row][2]) {
+      return true;
+    }
+    // Check current column
+    if (board[0][col] !== '_' && board[0][col] === board[1][col] && board[1][col] === board[2][col]) {
+      return true;
+    }
+  });
+  // Check diagonals
+  if ((board[0][0] !== '_' && board[0][0] === board[1][1] && board[1][1] === board[2][2])
+    || (board[2][0] !== '_' && board[2][0] === board[1][1] && board[1][1] === board[0][2])) {
+    return false;
+  }
 };
 
 const togglePiece = (board, currentPlayer) => {
