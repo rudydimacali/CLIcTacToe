@@ -38,11 +38,13 @@ const playGame = (board) => {
   let currentPlayer = 'X';
   while (!checkWin(board)) {
     togglePiece(board, currentPlayer);
-    console.log(`${board[0]}\n${board[1]}\n${board[2]}`);
+    console.log(`${board[0]}\n${board[1]}\n${board[2]}\n`);
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
   }
+  currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
   console.log(`${currentPlayer} wins!`);
   let playAgain = readline.question('Would you like to play again? (Y/N)');
+  console.log('\n');
   if (playAgain.toLowerCase() === 'y') {
     playGame([
       ['_', '_', '_'],
