@@ -9,10 +9,17 @@ const checkWin = (board) => {
   // TODO: implement win checking
 };
 
+const togglePiece = (board, currentPlayer) => {
+  // TODO: implement board piece toggling
+};
+
 const playGame = (board) => {
+  let currentPlayer = 'X';
   while (!checkWin(board)) {
-    // TODO: implement game
+    togglePiece(board, currentPlayer);
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
   }
+  console.log(`${currentPlayer} wins!`);
   const playAgain = 'n';
   rl.question('Would you like to play again? (Y/N)', (answer) => {
     playAgain = answer.toLowerCase();
