@@ -24,7 +24,26 @@ const checkWin = (board) => {
 };
 
 const togglePiece = (board, currentPlayer) => {
-  // TODO: implement board piece toggling
+  let x = null;
+  let y = null;
+  const getInput = () => {
+    rl.question('Enter the zero-indexed X coordinate of the position to mark.', (answer) => {
+      x = answer;
+      rl.close();
+    });
+    rl.question('Enter the zero-indexed X coordinate of the position to mark.', (answer) => {
+      x = answer;
+      rl.close();
+    });
+  };
+  while (x === null || y === null) {
+    getInput();
+  }
+  if (board[x][y] === '_') {
+    board[x][y] = currentPlayer;
+  } else {
+    togglePiece(board, currentPlayer);
+  }
 };
 
 const playGame = (board) => {
